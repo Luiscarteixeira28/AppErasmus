@@ -10,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
+//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+//{
     //options.SignIn.RequireConfirmedAccount = false;
 
     //options.Password.RequireDigit = true;
@@ -27,20 +27,22 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
     //options.User.AllowedUserNameCharacters =
     //"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = true;
+    //options.User.RequireUniqueEmail = true;
 
-})
-            .AddEntityFrameworkStores<IdentityContext>()
-            .AddDefaultTokenProviders();
+//})
+//            .AddEntityFrameworkStores<IdentityContext>()
+//            .AddDefaultTokenProviders();
 
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<IdentityContext>();
 
+//builder.Services.AddScoped<DatabaseContext>();
 builder.Services.AddScoped<IdentityContext>();
+//builder.Services.AddScoped<IdentityContext>();
 
 var app = builder.Build();
 
